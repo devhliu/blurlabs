@@ -11,7 +11,7 @@ task, so most of the work is in giving it the right inputs.
 import deepinv as dinv
 from blurlabs.models import RAM2
 
-model = RAM2()  # downloads the weights; gated: request access on Hugging Face, then `hf auth login` or set HF_TOKEN
+model = RAM2()  # loads the local weights at /mnt/d/WSL/workspace/devhliu/RAM/blurlabs_models/ram2.pth; use RAM2("download") to fetch from Hugging Face (gated)
 physics = dinv.physics.Blur(filter=dinv.physics.functional.blur.gaussian_blur(sigma=(2.0, 2.0)),
                             noise_model=dinv.physics.GaussianNoise(0.01))
 # load data y here

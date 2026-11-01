@@ -6,6 +6,9 @@ from pathlib import Path
 _RAM2_REPO_ID = "blurlabs/ram2"
 _RAM2_CONFIG_FILE = "config.json"
 
+# Local checkpoint used by default, so `RAM2()` does not hit the network.
+DEFAULT_LOCAL_CHECKPOINT = "/mnt/d/WSL/workspace/devhliu/RAM/blurlabs_models/ram2.pth"
+
 
 @dataclass(frozen=True)
 class RAM2Config:

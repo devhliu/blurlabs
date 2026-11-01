@@ -9,11 +9,11 @@ import torch.nn.functional as F
 import deepinv as dinv
 from deepinv.models import Reconstructor, Denoiser
 
-from ._configs import DEFAULT_RAM2_CONFIG, resolve_ram2_pretrained
+from ._configs import DEFAULT_LOCAL_CHECKPOINT, DEFAULT_RAM2_CONFIG, resolve_ram2_pretrained
 
 
 class RAM2(Reconstructor, Denoiser):
-    def __init__(self, pretrained: str | None = "download"):
+    def __init__(self, pretrained: str | None = DEFAULT_LOCAL_CHECKPOINT):
         r"""
         Reconstruct Anything Model (RAM) 2: a physics-conditioned network for solving linear inverse problems.
 
@@ -29,11 +29,14 @@ class RAM2(Reconstructor, Denoiser):
 
         .. note::
 
-            To download the pretrained weights, request access at https://huggingface.co/blurlabs/ram2, then run
-            `hf auth login` or set `HF_TOKEN`.
+            By default the weights are loaded from the local checkpoint
+            :data:`blurlabs.models._configs.DEFAULT_LOCAL_CHECKPOINT`. Pass ``"download"`` to fetch the gated
+            weights from https://huggingface.co/blurlabs/ram2 instead (requires access and `hf auth login` or
+            `HF_TOKEN`).
 
-        :param str, None pretrained: `"download"` to download the weights, a path to a checkpoint, or `None` for random
-            initialisation. A checkpoint is a plain state dict of this model. The model is put in eval mode.
+        :param str, None pretrained: a path to a checkpoint (by default the local checkpoint), ``"download"`` to
+            download the weights, or ``None`` for random initialisation. A checkpoint is a plain state dict of this
+            model. The model is put in eval mode.
         """
         super().__init__()
         config, pretrained = resolve_ram2_pretrained(DEFAULT_RAM2_CONFIG, pretrained)
